@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gerlish indo traditional Translator</title>
+</head>
+
+<body>
+
+<h2>Gerlish indo traditional Translator</h2>
+
+<textarea id="input" rows="6" cols="50"></textarea>
+<br><br>
+
+<button onclick="latinToGerlish()">Latin → Gerlish</button>
+<button onclick="gerlishToLatin()">Gerlish → Latin</button>
+
+<p id="output"></p>
+
+<script>
+
+// Mapping (dibuat lebih aman & unik)
+const gerlish = {
+a:"ä",
+b:"b",
+c:"c",
+d:"g",
+e:"ë",
+f:"f",
+g:"k",
+h:"h",
+i:"ï",
+j:"j",
+k:"k",
+l:"l",
+m:"m",
+n:"n",
+o:"ö",
+p:"pq",
+q:"q",
+r:"r",
+s:"s",
+t:"t",
+u:"ü",
+v:"vq",
+w:"wöq",
+x:"qr",
+y:"qy",
+z:"zäp"
+};
+
+// LATIN → GERLISH
+function latinToGerlish(){
+let text = document.getElementById("input").value.toLowerCase();
+let result = "";
+
+for(let char of text){
+result += gerlish[char] || char;
+}
+
+document.getElementById("output").innerText = result;
+}
+
+// GERLISH → LATIN
+function gerlishToLatin(){
+let text = document.getElementById("input").value;
+let result = text;
+
+// reverse mapping
+let reverse = {};
+for(let key in gerlish){
+reverse[gerlish[key]] = key;
+}
+
+// urutkan dari panjang ke pendek
+let sorted = Object.keys(reverse).sort((a,b)=>b.length-a.length);
+
+for(let code of sorted){
+result = result.split(code).join(reverse[code]);
+}
+
+document.getElementById("output").innerText = result;
+}
+
+</script>
+
+</body>
+</html>
